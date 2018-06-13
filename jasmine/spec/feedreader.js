@@ -73,6 +73,15 @@ $(function () {
          */
         it('ensures the menu changes visibility when the menu is clicked', function () {
 
+            $('body').toggleClass('menu-hidden');
+            var bodyelement = document.getElementsByTagName('body');
+            expect(bodyelement.length).toBe(1);
+            expect(bodyelement[0].classList.contains('menu-hidden')).toBe(false);
+
+            $('body').toggleClass('menu-hidden');
+            var bodyelement = document.getElementsByTagName('body');
+            expect(bodyelement.length).toBe(1);
+            expect(bodyelement[0].classList.contains('menu-hidden')).toBe(true);
         });
     });
     /* TODO: Write a new test suite named "Initial Entries" */
@@ -82,9 +91,26 @@ $(function () {
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-        it('new feed is loaded by the loadFeed function', function () {
+         * 
+        beforeEach(async function() {
+            await loadFeed(0);
+        });
 
+        it('new feed is loaded by the loadFeed function', function (done) {
+            expect(document.getElementsByClassName('feed').length > 0).toBe(true);
+        });
+         */
+        
+
+        beforeEach(function(done){
+            console.log("Now 1");
+            loadFeed(1, done);
+        });
+
+        it('some feed elements are loaded by the loadFeed function', function () {
+            console.log("Now 2");
+            console.log("Entries are: " + document.getElementsByClassName('entry').length);
+            expect(document.getElementsByClassName('entry').length).toBeGreaterThan(0);
         });
     });
 
