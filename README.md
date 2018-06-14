@@ -28,7 +28,7 @@ at the bottom there is the link to the location of the real tests:
 </html>
 
 ```
-When you have prepared your project like this, the actual work can start. The key words for Jasmine are describe, beforeEach, it and expect. Chapters start with describe. The Championsleague of testing is asynchronous testing as we do with beforeEach and the done function. it will create one result and it mus contain at least one expect. 
+When you have prepared your project like this, the actual work can start. The key words for Jasmine are **describe**, **beforeEach**, **it** and **expect**. 'Chapters' start with **describe**. The Championsleague of testing is **asynchronous testing** as we do with **beforeEach** and the **done** function. **it** will create one result and it must contain at least one **expect**. **expect**s are the tests.  
 ```
     describe('Initial Entries', function() {
 
