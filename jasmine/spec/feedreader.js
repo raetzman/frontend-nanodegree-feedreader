@@ -103,13 +103,13 @@ $(function () {
         
 
         beforeEach(function(done){
-            console.log("Now 1");
+            //console.log("Now 1");
             loadFeed(1, done);
         });
 
         it('some feed elements are loaded by the loadFeed function', function () {
-            console.log("Now 2");
-            console.log("Entries are: " + document.getElementsByClassName('entry').length);
+            //console.log("Now 2");
+            console.log("Entries count is: " + document.getElementsByClassName('entry').length);
             expect(document.getElementsByClassName('entry').length).toBeGreaterThan(0);
         });
     });
@@ -120,8 +120,44 @@ $(function () {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        var old_stuff = [];
+        // loads first - not super elegant but why not - we need the old value
+        beforeAll(function(done){
+            loadFeed(0, function (){
+                var all_entries = document.getElementsByClassName('entry');
+                for(var i = 0; i < all_entries.length; i++) {
+                    old_stuff.push(all_entries[i].outerText);
+                } 
+                done();
+            });
+        });
+        // loading before our test 
+        beforeEach(function(done) {
+            loadFeed(1, done);
+        });
+        // now the test
         it('content actually changes', function () {
+            var new_stuff = [];
 
+            var all_entries = document.getElementsByClassName('entry');
+            for(var i = 0; i < all_entries.length; i++) {
+                new_stuff.push(all_entries[i].outerText);
+            } 
+            console.log(old_stuff);
+            console.log(new_stuff);
+            //expect(old_stuff.length).not.toBe(new_stuff.length);
+            if(old_stuff.length = new_stuff.length){
+                // check every element
+                for(var i = 0; i < old_stuff.length; i++){
+                
+                    expect(old_stuff[i]).not.toBe(new_stuff[i].outerText);
+                }
+            }
+            else{
+                expect(old_stuff.length).not.toBe(new_stuff.length);
+            }
+            
+            
         });
     });
 }());
